@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import re
 import os
 import json
 import shutil
@@ -156,6 +155,40 @@ class PgnParser:
         elif len(game_dict["blackmoves"]) < len(game_dict["whitemoves"]):
             game_dict["blackmoves"].append("over")
 
+    def _explode_moves(self, df):
+        """Explode the whitemoves and blackmoves lists into individual rows"""
+        # We will create a new DataFrame to hold the expanded rows
+        expanded_rows = []
+
+        # Iterate over each row of the DataFrame
+        for index, row in df.iterrows():
+            # Get the whitemoves and blackmoves for the current row
+            whitemoves = row['whitemoves']
+            blackmoves = row['blackmoves']
+
+            # Find the maximum number of moves between white and black
+            max_moves = max(len(whitemoves), len(blackmoves))
+
+            # Create individual rows for each move pair
+            for i in range(max_moves):
+                # Create a new row that copies all the metadata from the current game
+                new_row = row.copy()
+
+                # Assign white_move and black_move for this row
+                new_row['white_move'] = whitemoves[i] if i < len(whitemoves) else None
+                new_row['black_move'] = blackmoves[i] if i < len(blackmoves) else None
+
+                # Add the new row to the list of expanded rows
+                expanded_rows.append(new_row)
+
+        # Convert the list of expanded rows into a new DataFrame
+        expanded_df = pd.DataFrame(expanded_rows)
+
+        # Remove the original whitemoves and blackmoves columns
+        final_df = expanded_df.drop(columns=['whitemoves', 'blackmoves'], axis=1, errors="ignore")
+
+        return final_df
+
     def process_pgn_files(self):
         """Processes PGN files and exports data to CSV"""
 
@@ -172,7 +205,7 @@ class PgnParser:
                     all_games = self._create_game_dict(games)
 
                     for game_dict in all_games:
-                        df = pd.DataFrame([game_dict])
+                        df = self._explode_moves(pd.DataFrame([game_dict]))
                         with open(self.games_list, 'a') as f:
                             df.to_csv(f, mode='a', header=f.tell() == 0, index=False)
         st.success("Export Complete!")
