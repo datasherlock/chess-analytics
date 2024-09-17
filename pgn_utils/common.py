@@ -13,7 +13,7 @@ def strip_whitespace(text):
 
 def set_page_header_format():
     st.set_page_config(
-        page_title="chess.com PGN to a CSV Convertor",
+        page_title="chess.com PGN to CSV Convertor",
         page_icon="️:material/chess:",
         layout="centered",
         initial_sidebar_state="expanded"
