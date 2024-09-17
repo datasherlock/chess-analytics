@@ -1,7 +1,5 @@
 # Chess PGN to CSV Converter
 
-## Project Banner
-
 ![PGN to CSV convertor](https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/PedroPinhata/phpNgJfyb.png)
 
 ## Project Description
