@@ -187,6 +187,6 @@ class PgnParser:
                 st.download_button(
                     label="Download CSV",
                     data=file,
-                    file_name=f"{self.user}_games",
+                    file_name=f"{self.user}_games.csv",
                     mime="text/csv",
                 )
