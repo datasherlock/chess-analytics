@@ -7,7 +7,7 @@ from pgn_utils.core import UserProfile, PgnParser
 def main():
     set_page_header_format()
     st.warning("Note: This currently works only for Live Games played on chess.com. Does not support Chess960 and other variants")
-    user = st.text_input("**Enter Chess.com Username**", "datasherlock")
+    user = st.text_input("**Enter your Chess.com Username**", "datasherlock")
 
 
     if st.button("Process all games"):
