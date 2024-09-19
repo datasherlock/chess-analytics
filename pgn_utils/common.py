@@ -13,7 +13,7 @@ def strip_whitespace(text):
 
 def set_page_header_format():
     st.set_page_config(
-        page_title="chess.com PGN to CSV Convertor",
+        page_title="chess.com PGN to CSV Converter",
         page_icon="️:material/chess:",
         layout="centered",
         initial_sidebar_state="expanded"
@@ -68,7 +68,7 @@ def set_page_header_format():
         </div>
     """
     st.markdown("""<p />""", unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: center; '>Chess PGN to CSV Convertor</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; '>Chess PGN to CSV Converter</h1>", unsafe_allow_html=True)
     st.markdown(navbar, unsafe_allow_html=True)
 
 
